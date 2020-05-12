@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SkiMap</string>
+    <string name="select_msg">Select Your Preferences</string>
+    <string name="moguls_label">Moguls</string>
+    <string name="glades_label">Glades</string>
+    <string name="parks_label">Parks</string>
+    <string name="trail_difficulty_label">Trail Difficulty</string>
+    <string name="trail_features_label">Trail Features</string>
+    <string name="find_path">Find Path</string>
+</resources>
