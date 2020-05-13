@@ -7,4 +7,5 @@
     <string name="trail_difficulty_label">Trail Difficulty</string>
     <string name="trail_features_label">Trail Features</string>
     <string name="find_path">Find Path</string>
+    <string name="results_label">Results</string>
 </resources>

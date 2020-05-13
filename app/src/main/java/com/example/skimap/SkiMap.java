@@ -2,7 +2,6 @@ package com.example.skimap;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.renderscript.ScriptGroup;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,8 +46,8 @@ public class SkiMap {
             String name = parts[trail_name_index];
             int tag_count = parts.length - (trail_name_index + 1);
             Integer[] trail_tags = new Integer[tag_count];
-            for (int i = trail_name_index + 1; i < tag_count && i < parts.length; i++){
-                trail_tags[i] = Integer.parseInt(parts[i]);
+            for (int i = 0; i < tag_count; i++){
+                trail_tags[i] = Integer.parseInt(parts[i + trail_name_index + 1]);
             }
             trail_table.put(name, trail_tags);
         }
@@ -57,14 +56,13 @@ public class SkiMap {
     static {
         System.loadLibrary("SkiMap");
     }
-    public String[] requestPath(byte user_preferences){
+    public String requestPath(byte user_preferences){
         String raw_path = getPath(user_preferences, vector_data, edge_data);
         System.out.println(raw_path);
-        return new String[0];
+        return raw_path;
     }
     public String[] getTrailClassifications(String key){
-        if (!trail_table.contains(key)) return null;
-
+        if (!trail_table.containsKey(key)) return null;
         Integer[] trail_tags = trail_table.get(key);
         int tag_count = trail_tags.length;
         String[] classifications = new String[tag_count];
