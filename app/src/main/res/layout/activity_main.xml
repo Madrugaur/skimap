@@ -48,7 +48,7 @@
         android:layout_marginTop="15dp"
         app:layout_constraintStart_toEndOf="@+id/cbBlue"
         app:layout_constraintTop_toBottomOf="@+id/tvSelectPreferences"
-        app:srcCompat="@drawable/blue_squar2" />
+        app:srcCompat="@drawable/blue_squar" />
 
     <CheckBox
         android:id="@+id/cbDouble"
@@ -104,7 +104,7 @@
         android:layout_marginTop="15dp"
         app:layout_constraintStart_toEndOf="@+id/cbBlack"
         app:layout_constraintTop_toBottomOf="@+id/tvSelectPreferences"
-        app:srcCompat="@drawable/black_diamond2" />
+        app:srcCompat="@drawable/black_diamond" />
 
     <CheckBox
         android:id="@+id/cbPark"
@@ -166,19 +166,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TableLayout
-        android:id="@+id/tblResults"
-        android:layout_width="382dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnFindPath"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvResultsLabel">
 
-
-    </TableLayout>
 
     <TextView
         android:id="@+id/tvResultsLabel"
@@ -187,9 +175,31 @@
         android:layout_marginTop="16dp"
         android:text="@string/results_label"
         android:textSize="18sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cbPark" />
 
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="382dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/btnFindPath"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvResultsLabel">
+
+        <TableLayout
+            android:id="@+id/tblResults"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+        </TableLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
