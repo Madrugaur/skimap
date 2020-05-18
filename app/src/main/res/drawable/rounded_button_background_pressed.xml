@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <gradient
+        android:angle="0"
+        android:startColor="@color/button_background_color_pressed"
+        android:endColor="@color/button_background_color_pressed"
+
+        />
+    <size
+        android:height="46dp"
+        android:width="222dp"
+        />
+    <corners
+        android:radius="40dp"
+        />
+</shape>

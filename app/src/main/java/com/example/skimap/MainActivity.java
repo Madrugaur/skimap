@@ -24,7 +24,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         skimap = new SkiMap(this, "jakesmtn");
-        ((Button)findViewById(R.id.btnFindPath)).setOnClickListener(new View.OnClickListener() {
+        final Button findpathButton  = (Button)findViewById(R.id.btnFindPath);
+        findpathButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 byte userp = packbits();
