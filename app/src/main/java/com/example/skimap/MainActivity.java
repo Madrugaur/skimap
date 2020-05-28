@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -14,11 +13,21 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class MainActivity extends AppCompatActivity {
 
+    private static final int TABLE_TEXT_SIZE = 24;
+    private static final int TABLE_TRAIL_NAME_MARGIN_TOP = 0;
+    private static final int TABLE_TRAIL_NAME_MARGIN_LEFT = 100;
+    private static final int TABLE_TRAIL_NAME_MARGIN_RIGHT = 15;
+    private static final int TABLE_TRAIL_NAME_MARGIN_BOTTOM = 0;
+    private static final int TABLE_TRAIL_IMAGE_MARGIN_TOP = 0;
+    private static final int TABLE_TRAIL_IMAGE_MARGIN_LEFT = 15;
+    private static final int TABLE_TRAIL_IMAGE_MARGIN_RIGHT = 15;
+    private static final int TABLE_TRAIL_IMAGE_MARGIN_BOTTOM = 0;
+    private static final String JNI_RETURN_STRING_REGEX = " ";
+
     SkiMap skimap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         findpathButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 byte userp = packbits();
                 System.out.println(userp);
                 String res = skimap.requestPath(userp);
@@ -35,7 +45,10 @@ public class MainActivity extends AppCompatActivity {
                 ((TextView)findViewById(R.id.tvResultsLabel)).setVisibility(View.VISIBLE);
             }
         });
+
     }
+    private void initFindPathButton(){}
+
     public byte packbits(){
         CheckBox green = findViewById(R.id.cbGreen);
         CheckBox blue = findViewById(R.id.cbBlue);
@@ -52,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     public void createTable(String input){
         TableLayout tableLayout = (TableLayout)findViewById(R.id.tblResults);
         tableLayout.removeAllViews();
-        String[] trailnames = input.split(" ");
+        String[] trailnames = input.split(JNI_RETURN_STRING_REGEX);
         for (String trail : trailnames){
             tableLayout.addView(createTableRow(trail), new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
         }
@@ -67,10 +80,10 @@ public class MainActivity extends AppCompatActivity {
         //Create TextView with trail name
         TextView tvTrailName = new TextView(this);
         {
-            tvTrailName.setTextSize(30);
+            tvTrailName.setTextSize(TABLE_TEXT_SIZE);
             tvTrailName.setText(input.replace('_', ' '));
             TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
-            params.setMargins(100, 0, 15, 0);
+            params.setMargins(TABLE_TRAIL_NAME_MARGIN_LEFT, TABLE_TRAIL_NAME_MARGIN_TOP, TABLE_TRAIL_NAME_MARGIN_RIGHT, TABLE_TRAIL_NAME_MARGIN_BOTTOM);
             tvTrailName.setLayoutParams(params);
             tvTrailName.setGravity(Gravity.LEFT);
             tr.addView(tvTrailName);
@@ -84,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             imgview.setImageDrawable(image);
             //imgview.setPadding(15, 0, 15,0);
             TableRow.LayoutParams params = new TableRow.LayoutParams(60, 60);
-            params.setMargins(15,0 ,15,0);
+            params.setMargins(TABLE_TRAIL_IMAGE_MARGIN_LEFT,TABLE_TRAIL_IMAGE_MARGIN_TOP ,TABLE_TRAIL_IMAGE_MARGIN_RIGHT,TABLE_TRAIL_IMAGE_MARGIN_BOTTOM);
             imgview.setLayoutParams(params);
 
             tr.addView(imgview);
