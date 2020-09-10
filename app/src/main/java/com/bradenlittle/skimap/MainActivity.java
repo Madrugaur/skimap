@@ -1,4 +1,4 @@
-package com.example.skimap;
+package com.bradenlittle.skimap;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +13,16 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.skimap.BitPacker;
+import com.example.skimap.R;
+import com.example.skimap.SkiMap;
+
+/**
+ * Description: MainActivity of the SkiMap application, necessary to run.
+ * @author Braden Little (https://github.com/Madrugaur)
+ * @version 1.0
+ * @since May, 2020
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static final int TABLE_TEXT_SIZE = 24;
@@ -49,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
     }
     private void initFindPathButton(){}
 
+    /**
+     * Description:
+     * @author Braden Little
+     * @return a byte packed with the user's preferences
+     */
     public byte packbits(){
         CheckBox green = findViewById(R.id.cbGreen);
         CheckBox blue = findViewById(R.id.cbBlue);
@@ -61,19 +76,29 @@ public class MainActivity extends AppCompatActivity {
         byte userP = BitPacker.bitPack(bools);
         return userP;
     }
-
-    public void createTable(String input){
+    /**
+     * Description: Populates the TableLayout component with the results of JNI call
+     * @author Braden Little
+     * @param
+     */
+    public void createTable(String jni_return_string){
         TableLayout tableLayout = (TableLayout)findViewById(R.id.tblResults);
         tableLayout.removeAllViews();
-        String[] trailnames = input.split(JNI_RETURN_STRING_REGEX);
+        String[] trailnames = jni_return_string.split(JNI_RETURN_STRING_REGEX);
         for (String trail : trailnames){
             tableLayout.addView(createTableRow(trail), new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
         }
     }
-    private TableRow createTableRow(String input){
+    /**
+     * Description: Parses and builds a TableRow based on the trail name
+     * @author Braden Little
+     * @param trailname The name of the trail that the TableRow will represent
+     * @return A correctly formatted TableRow containing the trail's name and any associated tags (i.e glade, blue, etc.)
+     */
+    private TableRow createTableRow(String trailname){
         //Create TableRow
         TableRow tr = new TableRow(this);
-        tr.setGravity(Gravity.LEFT);
+        tr.setGravity(Gravity.CENTER);
 
         tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 
@@ -81,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         TextView tvTrailName = new TextView(this);
         {
             tvTrailName.setTextSize(TABLE_TEXT_SIZE);
-            tvTrailName.setText(input.replace('_', ' '));
+            tvTrailName.setText(trailname.replace('_', ' '));
             TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
             params.setMargins(TABLE_TRAIL_NAME_MARGIN_LEFT, TABLE_TRAIL_NAME_MARGIN_TOP, TABLE_TRAIL_NAME_MARGIN_RIGHT, TABLE_TRAIL_NAME_MARGIN_BOTTOM);
             tvTrailName.setLayoutParams(params);
@@ -89,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             tr.addView(tvTrailName);
         }
         //Get trail classifications from SkiMap
-        String[] classifications = skimap.getTrailClassifications(input);
+        String[] classifications = skimap.getTrailClassifications(trailname);
         //Loop and add classifications in ImageViews. size 30dp x 30dp
         Drawable[] images = skimap.getTrailImages(classifications);
         for (Drawable image : images){
